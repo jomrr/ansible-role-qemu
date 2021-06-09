@@ -1,0 +1,7 @@
+---
+# role: ansible-role-qemu
+# file: tasks/main.yml
+
+- name: "Tasks for ansible-role-qemu"
+  import_tasks: tasks.yml
+  when: qemu_role_enabled | bool

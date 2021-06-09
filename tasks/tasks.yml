@@ -1,0 +1,8 @@
+---
+# role: ansible-role-qemu
+# file: tasks/tasks.yml
+
+- name: "Install packages for ansible-role-qemu"
+  package:
+    name: "{{ qemu_packages + qemu_add_packages }}"
+    state: present
