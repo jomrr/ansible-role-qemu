@@ -1,0 +1,17 @@
+---
+# role: ansible-role-updates
+# file: molecule/resources/playbooks/verify.yml
+
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: "Check qemu-img"
+      command: qemu-img --version
+      changed_when: false
+      register: _qemu_img
+
+    - name: "Assertions"
+      assert:
+        that: _qemu_img.rc == 0
