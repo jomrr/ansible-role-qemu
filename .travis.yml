@@ -4,8 +4,8 @@
 
 language: python
 
-python:
-  - "3.9"
+os: linux
+dist: focal
 
 branches:
   only:
@@ -18,5 +18,4 @@ install:
   - pip install ansible yamllint ansible-lint
 
 script:
-  - yamllint .
   - ansible-lint
