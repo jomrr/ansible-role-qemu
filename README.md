@@ -1,6 +1,6 @@
 # ansible-role-qemu
 
-![GitHub](https://img.shields.io/github/license/jam82/ansible-role-qemu) ![GitHub last commit](https://img.shields.io/github/last-commit/jam82/ansible-role-qemu) ![GitHub issues](https://img.shields.io/github/issues-raw/jam82/ansible-role-qemu) ![Travis (.com) branch](https://img.shields.io/travis/com/jam82/ansible-role-qemu/main?label=ansible-lint%20latest)
+![GitHub](https://img.shields.io/github/license/jomrr/ansible-role-qemu) ![GitHub last commit](https://img.shields.io/github/last-commit/jomrr/ansible-role-qemu) ![GitHub issues](https://img.shields.io/github/issues-raw/jomrr/ansible-role-qemu) ![Travis (.com) branch](https://img.shields.io/travis/com/jomrr/ansible-role-qemu/main?label=ansible-lint%20latest)
 
 **Ansible role for setting up qemu on headless systems.**
 
@@ -60,11 +60,11 @@ None.
 
 ## License and Author
 
-- Author:: [jam82](https://github.com/jam82/)
-- Copyright:: 2021, [jam82](https://github.com/jam82/)
+- Author:: [jomrr](https://github.com/jomrr/)
+- Copyright:: 2021, [jomrr](https://github.com/jomrr/)
 
 Licensed under [MIT License](https://opensource.org/licenses/MIT).
-See [LICENSE](https://github.com/jam82/ansible-role-qemu/blob/master/LICENSE) file in repository.
+See [LICENSE](https://github.com/jomrr/ansible-role-qemu/blob/master/LICENSE) file in repository.
 
 ## References
 

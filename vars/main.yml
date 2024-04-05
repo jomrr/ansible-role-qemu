@@ -7,6 +7,7 @@ _qemu_packages:
     - qemu-kvm
   Alpine:
     - qemu-img
+    - qemu-modules
     - qemu-system-x86_64
   Archlinux:
     - qemu-headless
@@ -22,6 +23,8 @@ _qemu_packages:
     - qemu-tools
 
 qemu_packages: >-
-  {{   _qemu_packages[ansible_os_family]
-  if   _qemu_packages[ansible_os_family] is defined
-  else _qemu_packages['default'] }}
+  {{
+    _qemu_packages[ansible_os_family]
+    if   _qemu_packages[ansible_os_family] is defined
+    else _qemu_packages['default']
+  }}

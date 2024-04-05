@@ -9,5 +9,5 @@
     baseline_role_enabled: false
     qemu_role_enabled: true
   roles:  # this enables custom directory name on checkout, e.g. 'my_role'
-    # - jam82.baseline
+    # - jomrr.baseline
     - role: ../../../../
