@@ -1,39 +1,22 @@
 ---
-# role: ansible-role-qemu
+# role: qemu
 # file: molecule/resources/playbooks/prepare.yml
 
-- name: Prepare
+- name: QEMU | Prepare test instances
   hosts: all
-  become: true
   gather_facts: true
   tasks:
-    - name: "Update apk cache"
-      apk:
+    - name: QEMU | Refresh the apt package cache
+      become: true
+      become_user: root
+      ansible.builtin.apt:
         update_cache: true
-      when: ansible_pkg_mgr == "apk"
+        cache_valid_time: 3600
+      when: ansible_facts.pkg_mgr == 'apt'
 
-    - name: "Update apt cache"
-      apt:
-        update_cache: true
-      when: ansible_pkg_mgr == "apt"
-
-    - name: "Update dnf cache"
-      dnf:
-        update_cache: true
-      when: ansible_pkg_mgr == "dnf"
-
-    - name: "Update pacman cache"
-      pacman:
-        update_cache: true
-      when: ansible_pkg_mgr == "pacman"
-
-    - name: "Update yum cache"
-      yum:
-        update_cache: true
-      when: ansible_pkg_mgr == "yum"
-
-    - name: "Update zypper cache"
-      zypper:
-        name: sudo
-        update_cache: true
-      when: ansible_pkg_mgr == "zypper"
+    - name: QEMU | Remove the additional package fixture
+      become: true
+      become_user: root
+      ansible.builtin.package:
+        name: file
+        state: absent

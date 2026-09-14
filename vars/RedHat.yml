@@ -1,0 +1,20 @@
+---
+# role: qemu
+# file: vars/RedHat.yml
+
+__qemu_base_packages:
+  - qemu-img
+__qemu_architecture_packages: '{{ {ansible_facts.architecture: [''qemu-kvm-core'']} }}'
+__qemu_uefi_packages:
+  x86_64:
+    - edk2-ovmf
+  aarch64:
+    - edk2-aarch64
+__qemu_storage_packages:
+  curl:
+    - qemu-kvm-block-curl
+  rbd:
+    - qemu-kvm-block-rbd
+# AlmaLinux ships the EGL display module only for x86_64 hosts.
+__qemu_display_packages: >-
+  {{ {'egl-headless': ['qemu-kvm-ui-egl-headless']} if ansible_facts.architecture == 'x86_64' else {} }}

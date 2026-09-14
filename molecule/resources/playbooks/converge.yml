@@ -1,13 +1,9 @@
 ---
-# role: ansible-role-qemu
+# role: qemu
 # file: molecule/resources/playbooks/converge.yml
 
-- name: Converge
+- name: "Molecule | converge | qemu"
   hosts: all
-  become: true
-  vars:
-    baseline_role_enabled: false
-    qemu_role_enabled: true
-  roles:  # this enables custom directory name on checkout, e.g. 'my_role'
-    # - jomrr.baseline
-    - role: ../../../../
+  gather_facts: true
+  roles:
+    - role: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}"

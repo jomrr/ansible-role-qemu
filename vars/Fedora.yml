@@ -1,0 +1,37 @@
+---
+# role: qemu
+# file: vars/Fedora.yml
+
+__qemu_base_packages:
+  - qemu-img
+__qemu_architecture_packages:
+  x86_64:
+    - qemu-system-x86-core
+  aarch64:
+    - qemu-system-aarch64-core
+__qemu_uefi_packages:
+  x86_64:
+    - edk2-ovmf
+  aarch64:
+    - edk2-aarch64
+__qemu_storage_packages:
+  curl:
+    - qemu-block-curl
+  iscsi:
+    - qemu-block-iscsi
+  nfs:
+    - qemu-block-nfs
+  rbd:
+    - qemu-block-rbd
+  ssh:
+    - qemu-block-ssh
+__qemu_display_packages:
+  gtk:
+    - qemu-ui-gtk
+  sdl:
+    - qemu-ui-sdl
+  spice:
+    - qemu-ui-spice-app
+    - qemu-ui-spice-core
+  egl-headless:
+    - qemu-ui-egl-headless

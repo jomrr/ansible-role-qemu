@@ -1,10 +1,27 @@
 ---
-# role: ansible-role-qemu
+# role: qemu
 # file: defaults/main.yml
 
-# The role is disabled by default, so you do not get in trouble.
-# Checked in tasks/main.yml which inlcudes tasks/main.yml if enabled.
-qemu_role_enabled: false
+# System emulator target architectures to install.
+# Choices: x86_64, aarch64
+qemu_architectures:
+  - x86_64
+# qemu_architectures: [x86_64, aarch64]
 
-# Install additional packages like qemu-block-rbd, etc...
+# Install UEFI firmware for the selected emulator architectures.
+# Choices: true, false
+qemu_uefi: true
+
+# Optional storage backends to make available to QEMU.
+# Choices: curl, iscsi, nfs, rbd, ssh
+qemu_storage_modules: []
+# qemu_storage_modules: [curl, iscsi, nfs, rbd, ssh]
+
+# Optional display backends to make available to QEMU.
+# Choices: gtk, sdl, spice, egl-headless
+qemu_display_modules: []
+# qemu_display_modules: [gtk, sdl, spice, egl-headless]
+
+# Additional distribution packages to install alongside QEMU.
 qemu_add_packages: []
+# qemu_add_packages: [file]

@@ -1,7 +1,48 @@
 ---
-# role: ansible-role-qemu
+# role: qemu
 # file: tasks/main.yml
 
-- name: "Tasks for ansible-role-qemu"
-  import_tasks: tasks.yml
-  when: qemu_role_enabled | bool
+- name: QEMU | Load platform settings
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', __qemu_platform_files) }}"
+  vars:
+    __qemu_platform_files:
+      files:
+        - "{{ ansible_facts.distribution }}.yml"
+        - "{{ ansible_facts.os_family }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
+
+- name: QEMU | Validate the selected platform capabilities
+  ansible.builtin.assert:
+    that:
+      - qemu_architectures | length > 0
+      - qemu_architectures | difference(__qemu_architecture_packages) | length == 0
+      - qemu_storage_modules | difference(__qemu_storage_packages) | length == 0
+      - qemu_display_modules | difference(__qemu_display_packages) | length == 0
+    quiet: true
+    fail_msg: >-
+      {{ ansible_facts.distribution }} on {{ ansible_facts.architecture }} supports
+      emulator architectures {{ __qemu_architecture_packages.keys() | list }},
+      storage modules {{ __qemu_storage_packages.keys() | list }}, and
+      display modules {{ __qemu_display_packages.keys() | list }}.
+      Select at least one supported emulator architecture.
+
+- name: QEMU | Install the selected emulators and modules
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: >-
+      {{ (__qemu_base_packages
+          + (qemu_architectures | map('extract', __qemu_architecture_packages) | flatten)
+          + (qemu_storage_modules | map('extract', __qemu_storage_packages) | flatten)
+          + (qemu_display_modules | map('extract', __qemu_display_packages) | flatten)
+          + qemu_add_packages) | unique }}
+    state: present
+
+- name: QEMU | Install UEFI firmware for the selected emulators
+  become: true
+  become_user: root
+  ansible.builtin.package:
+    name: "{{ qemu_architectures | map('extract', __qemu_uefi_packages) | flatten | unique }}"
+    state: present
+  when: qemu_uefi

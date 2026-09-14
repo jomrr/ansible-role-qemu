@@ -1,17 +1,18 @@
 ---
-# role: ansible-role-updates
+# role: qemu
 # file: molecule/resources/playbooks/verify.yml
 
-- name: Verify
+- name: QEMU | Verify installed capabilities
   hosts: all
-  become: true
-  gather_facts: false
+  gather_facts: true
   tasks:
-    - name: "Check qemu-img"
-      command: qemu-img --version
+    - name: QEMU | Exercise the installed emulators, firmware, modules, and tools
+      ansible.builtin.script:
+        cmd: ../tests/verify.py
+        executable: "{{ ansible_facts.python.executable }}"
+      environment:
+        QEMU_TEST_ARCHITECTURES: "{{ qemu_architectures | to_json }}"
+        QEMU_TEST_UEFI: "{{ qemu_uefi | string | lower }}"
+        QEMU_TEST_STORAGE_MODULES: "{{ qemu_storage_modules | to_json }}"
+        QEMU_TEST_DISPLAY_MODULES: "{{ qemu_display_modules | to_json }}"
       changed_when: false
-      register: _qemu_img
-
-    - name: "Assertions"
-      assert:
-        that: _qemu_img.rc == 0

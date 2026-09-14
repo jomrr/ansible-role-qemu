@@ -1,0 +1,36 @@
+---
+# role: qemu
+# file: vars/Debian.yml
+
+__qemu_base_packages:
+  - qemu-utils
+__qemu_architecture_packages:
+  x86_64:
+    - qemu-system-x86
+  aarch64:
+    - qemu-system-arm
+__qemu_uefi_packages:
+  x86_64:
+    - ovmf
+  aarch64:
+    - qemu-efi-aarch64
+__qemu_storage_packages:
+  curl:
+    - qemu-block-extra
+  iscsi:
+    - qemu-block-extra
+  nfs:
+    - qemu-block-extra
+  rbd:
+    - qemu-block-extra
+  ssh:
+    - qemu-block-extra
+__qemu_display_packages:
+  gtk:
+    - qemu-system-gui
+  sdl:
+    - qemu-system-gui
+  spice:
+    - qemu-system-modules-spice
+  egl-headless:
+    - qemu-system-modules-opengl

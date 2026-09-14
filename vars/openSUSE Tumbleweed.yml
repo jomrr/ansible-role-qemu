@@ -1,0 +1,37 @@
+---
+# role: qemu
+# file: vars/openSUSE Tumbleweed.yml
+
+__qemu_base_packages:
+  - qemu-tools
+__qemu_architecture_packages:
+  x86_64:
+    - qemu-x86
+  aarch64:
+    - qemu-arm
+__qemu_uefi_packages:
+  x86_64:
+    - qemu-ovmf-x86_64
+  aarch64:
+    - qemu-uefi-aarch64
+__qemu_storage_packages:
+  curl:
+    - qemu-block-curl
+  iscsi:
+    - qemu-block-iscsi
+  nfs:
+    - qemu-block-nfs
+  rbd:
+    - qemu-block-rbd
+  ssh:
+    - qemu-block-ssh
+__qemu_display_packages:
+  gtk:
+    - qemu-ui-gtk
+  spice:
+    - qemu-ui-spice-app
+    - qemu-ui-spice-core
+  egl-headless:
+    - qemu-ui-opengl
+  sdl:
+    - qemu-ui-sdl

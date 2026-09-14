@@ -1,0 +1,62 @@
+---
+# role: qemu
+# file: meta/argument_specs.yml
+
+argument_specs:
+  main:
+    short_description: Install selected QEMU system emulators, UEFI firmware, and optional
+      storage and display modules.
+    options:
+      qemu_architectures:
+        type: list
+        elements: str
+        default:
+          - x86_64
+        choices:
+          - x86_64
+          - aarch64
+        description:
+          - System emulator target architectures to install; at least one is required.
+          - AlmaLinux supports only the host architecture.
+      qemu_uefi:
+        type: bool
+        default: true
+        description:
+          - Install UEFI firmware for each selected emulator architecture.
+          - Disabling this option does not remove firmware installed previously or pulled
+            in as a package dependency.
+      qemu_storage_modules:
+        type: list
+        elements: str
+        default: []
+        choices:
+          - curl
+          - iscsi
+          - nfs
+          - rbd
+          - ssh
+        description:
+          - Optional storage backends to install where supported by the distribution.
+          - Available names are curl, iscsi, nfs, rbd, and ssh.
+          - Distribution packages may provide several backends together; omitted modules
+            are not removed.
+      qemu_display_modules:
+        type: list
+        elements: str
+        default: []
+        choices:
+          - gtk
+          - sdl
+          - spice
+          - egl-headless
+        description:
+          - Optional display backends to install where supported by the distribution.
+          - Available names are gtk, sdl, spice, and egl-headless.
+          - This installs modules without configuring or starting a graphical display or
+            remote endpoint.
+      qemu_add_packages:
+        type: list
+        elements: str
+        default: []
+        description:
+          - Additional distribution packages to install alongside the platform's QEMU packages.
